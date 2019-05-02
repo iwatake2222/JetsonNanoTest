@@ -19,10 +19,17 @@ int main(int argc, char* argv[])
 	} else {
 		cap.open(camId);
 	}
-	while (cap.read(image)) {
-		cv::imshow("DisplayCamera", image);
-		int key = cv::waitKey(1);
-		if (key >= 0) break;
+
+	if (cap.isOpened()) {
+		while (cap.read(image)) {
+			cv::imshow("DisplayCamera", image);
+			int key = cv::waitKey(1);
+			if (key >= 0) break;
+		}
+		cap.release();
+	} else {
+		printf("cannot open camera\n");
+		cv::waitKey(-1);
 	}
 
 	cv::destroyAllWindows();
