@@ -193,6 +193,7 @@ int main(int argc, char** argv)
 		cv::Mat imgResized;
 		cv::resize(frame, imgResized, cv::Size(INPUT_W, INPUT_H));
 		
+		/* convert NHWC to NCHW */
 		#pragma omp parallel for
 		for (int c = 0; c < INPUT_C; c++) {
 			for (int i = 0; i < INPUT_W * INPUT_H; i++) {
